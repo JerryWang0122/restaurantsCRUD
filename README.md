@@ -1,6 +1,7 @@
 # [Alpha Camp] Dev C3 - M3 指標作業：打造餐廳清單
 This is a web application using NodeJS and Express. The user interface structure and restaurants' information are provided by Alpha Camp. My main goal is to build the routes for the web and become familiar with the Express and express-handlebars package.
 
+![image](https://github.com/JerryWang0122/restaurants/blob/main/public/images/home%20page.png?raw=true)
 
 ## Features
 * List restaurants: use static json files
