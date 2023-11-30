@@ -13,19 +13,25 @@ app.set('views', './views')
 app.use(express.static('public'))
 
 app.get('/', (req, res) => {
-  Restaurant.findAll()
-    .then((restaurants) => res.send({ restaurants }))
-  // res.redirect('/restaurants')
+  res.redirect('/restaurants')
 })
 
 app.get('/restaurants', (req, res) => {
   const keyword = req.query.keyword?.trim().toLowerCase()
 
-  const matchedRestaurants = keyword ? restaurants.filter((rest) => {
-    return rest.name.toLowerCase().includes(keyword) || rest.category.includes(keyword)
-  }) : restaurants
+  return Restaurant.findAll({
+    attributes: ['id', 'name', 'image', 'category', 'rating'],
+    raw: true
+  })
+    .then(restaurants => {
+      const matchedRestaurants = keyword ? restaurants.filter((rest) => {
+        return rest.name.toLowerCase().includes(keyword) || rest.category.includes(keyword)
+      }) : restaurants
+
+      res.render('index', { restaurants: matchedRestaurants, keyword })
+    })
+    .catch((err) => res.status(422).json(err))
   
-  res.render('index', { restaurants: matchedRestaurants, keyword })
 })
 
 app.get('/restaurant/:id', (req, res) => {
