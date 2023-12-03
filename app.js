@@ -45,7 +45,7 @@ app.post('/restaurants', (req, res) => {
     .catch(err => console.log(err))
 })
 
-app.get('/restaurant/:id', (req, res) => {
+app.get('/restaurants/:id', (req, res) => {
   const id = req.params.id
   return Restaurant.findByPk(id, {
     attributes: ['name', 'category', 'location', 'google_map', 'phone', 'description', 'image'],
