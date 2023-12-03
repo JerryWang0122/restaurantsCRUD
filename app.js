@@ -1,5 +1,6 @@
 const express = require('express')
 const { engine } = require('express-handlebars')
+const methodOverride = require('method-override')
 const app = express()
 const port = 3000
 
@@ -12,6 +13,7 @@ app.set('views', './views')
 app.use(express.static('public'))
 
 app.use(express.urlencoded({ extended: true}))
+app.use(methodOverride('_method'))
 
 app.get('/', (req, res) => {
   res.redirect('/restaurants')
@@ -53,6 +55,23 @@ app.get('/restaurants/:id', (req, res) => {
   })
     .then(rest => res.render('detail', { rest }))
     .catch(err => console.log(err))
+})
+
+app.get('/restaurants/:id/edit', (req, res) => {
+  const id = req.params.id
+  return Restaurant.findByPk(id, {
+    raw: true
+  })
+    .then(rest => res.render('edit', { rest }))
+    .catch(err => console.log(err))
+})
+
+app.put('/restaurants/:id', (req, res) => {
+  const id = req.params.id
+  const body = req.body
+  return Restaurant.update(body , { where: { id }})
+      .then(() => res.redirect(`/restaurants/${id}`))
+      .catch(err => console.log(err))
 })
 
 app.listen(port, () => {
