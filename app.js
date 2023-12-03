@@ -2,7 +2,6 @@ const express = require('express')
 const { engine } = require('express-handlebars')
 const app = express()
 const port = 3000
-const restaurants = require('./public/jsons/restaurant.json').results
 
 const db = require('./models')
 const Restaurant = db.Restaurant
@@ -11,6 +10,8 @@ app.engine('.hbs', engine({extname: '.hbs'}))
 app.set('view engine', '.hbs')
 app.set('views', './views')
 app.use(express.static('public'))
+
+app.use(express.urlencoded({ extended: true}))
 
 app.get('/', (req, res) => {
   res.redirect('/restaurants')
@@ -32,6 +33,16 @@ app.get('/restaurants', (req, res) => {
     })
     .catch((err) => res.status(422).json(err))
   
+})
+
+app.get('/restaurants/new', (req, res) => {
+  return res.render('create')
+})
+
+app.post('/restaurants', (req, res) => {
+  return Restaurant.create(req.body)
+    .then(() => res.redirect('./restaurants'))
+    .catch(err => console.log(err))
 })
 
 app.get('/restaurant/:id', (req, res) => {
