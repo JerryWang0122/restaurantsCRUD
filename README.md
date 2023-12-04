@@ -3,6 +3,7 @@
 
 ![home](https://github.com/JerryWang0122/restaurantsCRUD/blob/main/public/images/home.png?raw=true)
 ![create](https://github.com/JerryWang0122/restaurantsCRUD/blob/main/public/images/create.png?raw=true)
+![detail](https://github.com/JerryWang0122/restaurantsCRUD/blob/main/public/images/detail.png?raw=true)
 ![edit](https://github.com/JerryWang0122/restaurantsCRUD/blob/main/public/images/edit.png?raw=true)
 ![delete](https://github.com/JerryWang0122/restaurantsCRUD/blob/main/public/images/delete.png?raw=true)
 
