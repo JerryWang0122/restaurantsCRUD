@@ -5,22 +5,15 @@
 // You can also change the "database" name if it already exists.
 // Don't forget to update the same settings in /config/config.json if you make any changes here.
 
-const UserSetting = {
-  hostname: 'localhost',
-  user: 'root',
-  password: 'password',
-  database: 'restaurant'
-}
-
-// *** User Settings End *** //
-
+// UserSetting 
+const UserSetting = require('./config/config.json').development
 
 const mysql = require('mysql2');
 
 // Create connection
 const connection = mysql.createConnection({
-  host: UserSetting.hostname,
-  user: UserSetting.user,
+  host: UserSetting.host,
+  user: UserSetting.username,
   password: UserSetting.password
 });
 
