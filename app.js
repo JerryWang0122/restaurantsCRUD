@@ -1,10 +1,15 @@
 const express = require('express')
 const { engine } = require('express-handlebars')
+const handlebars = require('handlebars')
 const methodOverride = require('method-override')
 const app = express()
 const port = 3000
 
 const router = require('./routes')
+
+handlebars.registerHelper('isEqual', (arg1, arg2) => {
+  return arg1 === arg2
+})
 
 app.engine('.hbs', engine({extname: '.hbs'}))
 app.set('view engine', '.hbs')
