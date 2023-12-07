@@ -22,44 +22,45 @@
     <div class="col-md-10 col-12 mx-auto">
       <div class="row row-cols-sm-3">
         {{#each restaurants as |rest|}}
-          <div class="card mb-3 px-1">
-            <img class="card-img-top" src="{{rest.image}}"
-              alt="{{rest.name}}">
-            <div class="card-body p-3">
-              <h6 class="card-title mb-1">{{rest.name}}</h6>
-
-              <div class="restaurant-category mb-1">
-                <i class="fas fa-utensils pr-2"></i> {{rest.category}}
-              </div>
-
-              <span class="badge rounded-pill bg-danger font-weight-normal">
-                {{rest.rating}}
-                <i class="fas fa-star fa-xs"></i>
-              </span>
-
+        <div class="card mb-3 px-1">
+          <a href="/restaurants/{{rest.id}}" class="text-secondary">
+            <img class="card-img-top" src="{{rest.image}}" alt="{{rest.name}}">
+          </a>
+          <div class="card-body mx-2">
+            <h6 class="card-title mb-1">{{rest.name}}</h6>
+          
+            <div class="restaurant-category mb-1">
+              <i class="fas fa-utensils pr-2"></i> {{rest.category}}
             </div>
-            <div class="card-footer d-flex justify-content-end">
+          
+            <span class="badge rounded-pill bg-danger font-weight-normal">
+              {{rest.rating}}
+              <i class="fas fa-star fa-xs"></i>
+            </span>
+            <hr>
+            <div class="d-flex justify-content-end mt-2">
               <a class="btn" href="/restaurants/{{rest.id}}/edit">Edit</a>
               <a class="btn" href="/restaurants/{{rest.id}}">Detail</a>
               <a class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#ModalDelete{{rest.id}}" href="">Delete</a>
             </div>
           </div>
-          {{!-- delete modal --}}
-          <div class="modal fade" id="ModalDelete{{rest.id}}" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-              <div class="modal-content">
-                <div class="modal-body">
-                  <h5 class="modal-title" id="exampleModalLabel">確認刪除 {{rest.name}} 的相關資訊</h5>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                  <form action="/restaurants/{{rest.id}}?_method=DELETE" method="post">
-                    <button class="btn btn-danger" type="submit"> Delete</button>
-                  </form>
-                </div>
+        </div>
+        {{!-- delete modal --}}
+        <div class="modal fade" id="ModalDelete{{rest.id}}" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-body">
+                <h5 class="modal-title" id="exampleModalLabel">確認刪除 {{rest.name}} 的相關資訊</h5>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <form action="/restaurants/{{rest.id}}?_method=DELETE" method="post">
+                  <button class="btn btn-danger" type="submit"> Delete</button>
+                </form>
               </div>
             </div>
           </div>
+        </div>
         {{/each}}
       </div>
     </div>
