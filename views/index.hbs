@@ -16,11 +16,11 @@
           </div>
           <div class="col-sm-4">
             <select name="sort" class="form-select mb-3" aria-label="sort" onchange="document.getElementById('search-sort-form').submit()">
-              <option value="0">不排序</option>
-              <option value="1">A > Z</option>
-              <option value="2">Z > A</option>
-              <option value="3">類別</option>
-              <option value="4">地區</option>
+              <option value="id" {{#if id}}selected{{/if}}>不排序</option>
+              <option value="name" {{#if name}}selected{{/if}}>A > Z</option>
+              <option value="name-DESC" {{#if name-DESC}}selected{{/if}}>Z > A</option>
+              <option value="category" {{#if category}}selected{{/if}}>類別</option>
+              <option value="location" {{#if location}}selected{{/if}}>地區</option>
             </select>
           </div>
         </div>

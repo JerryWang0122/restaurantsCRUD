@@ -8,7 +8,8 @@ const sequelize = require('sequelize');
 const { Op } = require("sequelize");
 
 router.get('/', (req, res) => {
-  const keyword = req.query.keyword?.trim().toLowerCase()
+  const keyword = req.query.keyword?.trim().toLowerCase() || ''
+  const sortSetting = req.query.sort || 'id'
 
   return Restaurant.findAll({
     where: {  // WHERE (LOWER(`name`) LIKE '%[keyword]%' OR LOWER(`category`) LIKE '%[keyword]%')
@@ -21,16 +22,11 @@ router.get('/', (req, res) => {
         })
       ]
     },
+    order: [sortSetting.split('-')],
     attributes: ['id', 'name', 'image', 'category', 'rating'],
     raw: true
   })
-    .then(restaurants => {
-      const matchedRestaurants = keyword ? restaurants.filter((rest) => {
-        return rest.name.toLowerCase().includes(keyword) || rest.category.includes(keyword)
-      }) : restaurants
-
-      res.render('index', { restaurants: matchedRestaurants, keyword })
-    })
+    .then(restaurants => res.render('index', { restaurants, keyword, [sortSetting]:sortSetting }))
     .catch((err) => res.status(422).json(err))
   
 })
