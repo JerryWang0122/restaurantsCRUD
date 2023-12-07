@@ -4,10 +4,23 @@ const router = express.Router()
 const db = require('../models')
 const Restaurant = db.Restaurant
 
+const sequelize = require('sequelize');
+const { Op } = require("sequelize");
+
 router.get('/', (req, res) => {
   const keyword = req.query.keyword?.trim().toLowerCase()
 
   return Restaurant.findAll({
+    where: {  // WHERE (LOWER(`name`) LIKE '%[keyword]%' OR LOWER(`category`) LIKE '%[keyword]%')
+      [Op.or]: [
+        sequelize.where(sequelize.fn('LOWER', sequelize.col('name')), {
+          [Op.like]: `%${keyword}%`
+        }),
+        sequelize.where(sequelize.fn('LOWER', sequelize.col('category')), {
+          [Op.like]: `%${keyword}%`
+        })
+      ]
+    },
     attributes: ['id', 'name', 'image', 'category', 'rating'],
     raw: true
   })
