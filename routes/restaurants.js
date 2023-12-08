@@ -10,8 +10,10 @@ const { Op } = require("sequelize");
 router.get('/', (req, res) => {
   const keyword = req.query.keyword?.trim().toLowerCase() || ''
   const sort = req.query.sort || 'id'
+  const page = parseInt(req.query.page) || 1
+  const limit = 6
 
-  return Restaurant.findAll({
+  return Restaurant.findAndCountAll({
     where: {  // WHERE (LOWER(`name`) LIKE '%[keyword]%' OR LOWER(`category`) LIKE '%[keyword]%')
       [Op.or]: [
         sequelize.where(sequelize.fn('LOWER', sequelize.col('name')), {
@@ -22,11 +24,21 @@ router.get('/', (req, res) => {
         })
       ]
     },
+    limit,
+    offset: (page - 1) * limit,
     order: [sort.split('-')],
     attributes: ['id', 'name', 'image', 'category', 'rating'],
     raw: true
   })
-    .then(restaurants => res.render('index', { restaurants, keyword, sort }))
+    .then(restaurants => {
+      const maxPage = Math.ceil(restaurants.count / limit)
+      res.render('index', { 
+        restaurants: restaurants.rows,
+        prev: page > 1 ? page - 1 : 1,
+        next: page >= maxPage ? maxPage : page + 1,
+        keyword, sort, page, maxPage
+      })
+    })
     .catch((err) => res.status(422).json(err))
   
 })

@@ -24,6 +24,7 @@
             </select>
           </div>
         </div>
+        <input type="hidden" name="page" value="1">
       </form>
     </div>
   </div>
@@ -78,5 +79,38 @@
       </div>
     </div>
   </div>
+</div>
+{{!-- Paginator --}}
+<div class="container">
+  <div class="row justify-content-md-center my-3 ms-3">
+    <div class="col col-lg-1">
+      <form action="/restaurants" method="GET">
+        <input type="hidden" name="keyword" value="{{keyword}}">
+        <input type="hidden" name="sort" value="{{sort}}">
+        <input type="hidden" name="page" value="{{prev}}">
+        <button type="submit" class="btn btn-primary ms-4"><i class="fa-solid fa-angles-left"></i></button>
+      </form>
+    </div>
+
+    <div class="col-md-1 px-0">
+      <form action="/restaurants" method="GET">
+        <input type="hidden" name="keyword" value="{{keyword}}">
+        <input type="hidden" name="sort" value="{{sort}}">
+        <input type="number" name="page" value="{{page}}" class="form-control">
+      </form>     
+      
+    </div>
+
+    <div class="col col-lg-2 d-flex ps-0">
+      <h4 class="mx-3">/ {{maxPage}}</h4>
+      <form action="/restaurants" method="GET">
+        <input type="hidden" name="keyword" value="{{keyword}}">
+        <input type="hidden" name="sort" value="{{sort}}">
+        <input type="hidden" name="page" value="{{next}}">
+        <button type="submit" class="btn btn-primary"><i class="fa-solid fa-angles-right"></i></button>
+      </form>
+    </div>
+  </div>
+  
 </div>
 <link rel="stylesheet" href="/stylesheets/index page.css">
