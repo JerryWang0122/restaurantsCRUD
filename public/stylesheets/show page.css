@@ -73,3 +73,20 @@ header {
     font-size: 2rem;
   }
 }
+
+.message {
+  position: fixed;
+  top: 2rem;
+  z-index: 5000;
+  padding: 15px 30px;
+  border-radius: 10px;
+  background-color: rgba(255, 222, 222, 0.8);
+  color: #9b4b4b;
+  animation: fadeOut 0s 3s forwards;
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+  }
+}
