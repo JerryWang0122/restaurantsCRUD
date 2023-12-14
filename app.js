@@ -15,6 +15,8 @@ handlebars.registerHelper('isEqual', (arg1, arg2) => {
   return arg1 === arg2
 })
 
+const passport = require('passport')
+
 app.engine('.hbs', engine({extname: '.hbs'}))
 app.set('view engine', '.hbs')
 app.set('views', './views')
@@ -30,7 +32,10 @@ app.use(session({
 }))
 app.use(flash())
 
+app.use(passport.initialize())
+
 app.use(messageHandlers)
+
 app.use(router)
 
 app.use(errorHandlers)

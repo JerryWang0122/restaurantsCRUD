@@ -12,6 +12,7 @@ router.get('/', (req, res) => {
   const sort = req.query.sort || 'id'
   const page = parseInt(req.query.page) || 1
   const limit = 6
+  console.log('session', req.session)
 
   return Restaurant.findAndCountAll({
     where: {  // WHERE (LOWER(`name`) LIKE '%[keyword]%' OR LOWER(`category`) LIKE '%[keyword]%')
