@@ -1,0 +1,35 @@
+<div class="container">
+  <h1 class="mb-1 restaurant-show-title">註冊</h1>
+
+  <form action="/register" method="post" class="d-flex flex-column row align-items-center my-1">
+    <div class="col-6">
+      <label for="name" class="form-label form-label-lg">Name (Optional)</label>
+      <input type="text" name="name" id="name" placeholder="Name (Optional)" class="mb-2 form-control form-control-lg">
+    </div>
+    <div class="col-6">
+      <label for="email" class="form-label form-label-lg">Email</label>
+      <input type="email" name="email" id="email" placeholder="Email" class="mb-2 form-control form-control-lg" required>
+    </div>
+    <div class="col-6">
+      <label for="password" class="form-label form-label-lg">Password</label>
+      <input type="password" name="password" id="password" placeholder="Password"
+        class="mb-2 form-control form-control-lg" required>
+    </div>
+    <div class="col-6">
+      <label for="confirmPassword" class="form-label form-label-lg">Confirm Password</label>
+      <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Confirm password" class="mb-2 form-control form-control-lg"
+        required>
+    </div>
+    <div class="d-grid gap-2 col-6 mx-auto mt-2">
+      <button class="btn btn-primary btn-lg" type="submit">Register</button>
+    </div>
+  </form>
+
+  <div class="d-flex justify-content-center mt-2 mb-4">
+    <span class="me-3">Already have an account?</span>
+    <a href="/login">Login</a>
+  </div>
+  
+
+</div>
+<link rel="stylesheet" href="/stylesheets/index page.css">
