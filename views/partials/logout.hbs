@@ -1,0 +1,9 @@
+{{#if userName}}
+  <div>
+    <span style="color: #4592af;">使用者：{{userName}}</span>
+
+    <form action="/logout" method="post" class="ms-3" style="display: inline;">
+      <button type="submit" class="btn btn-secondary">登出</button>
+    </form>
+  </div>
+{{/if}}

@@ -37,6 +37,10 @@ passport.serializeUser((user, done) => {
   return done(null, { id, name, email})
 })
 
+passport.deserializeUser((user, done) => {
+  done(null, { id: user.id, name: user.name })
+})
+
 router.get('/login', (req, res) => {
   res.render('login')
 })
@@ -87,7 +91,12 @@ router.post('/register', (req, res) => {
 })
 
 router.post('/logout', (req, res) => {
-  res.send('post logout info')
+  req.logout(error => {
+    if (error) {
+      next(error)
+    }
+    return res.redirect('/login')
+  })
 })
 
 module.exports = router
