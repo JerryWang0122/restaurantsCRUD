@@ -7,6 +7,8 @@ const Restaurant = db.Restaurant
 const sequelize = require('sequelize');
 const { Op } = require("sequelize");
 
+const checkRestaurantInfo = require('../utils/checkRestaurantInfo')
+
 router.get('/', (req, res) => {
   const keyword = req.query.keyword?.trim().toLowerCase() || ''
   const sort = req.query.sort || 'id'
@@ -53,7 +55,15 @@ router.get('/new', (req, res) => {
 
 router.post('/', (req, res, next) => {
   const userId = req.user.id
-  return Restaurant.create({ ...req.body, userId })
+  const body = req.body
+  const eval = checkRestaurantInfo(body)
+  
+  if (!eval.state) {
+    req.flash('error', eval.errorMessage)
+    return res.redirect('back')
+  }
+
+  return Restaurant.create({ ...restInfo, userId })
     .then(() => {
       req.flash('success', '新增成功')
       return res.redirect('/restaurants')
@@ -114,6 +124,12 @@ router.put('/:id', (req, res, next) => {
   const id = req.params.id
   const body = req.body
   const userId = req.user.id
+
+  const eval = checkRestaurantInfo(body)
+  if (!eval.state) {
+    req.flash('error', eval.errorMessage)
+    return res.redirect('back')
+  }
 
   return Restaurant.findByPk(id)
     .then(rest => {
