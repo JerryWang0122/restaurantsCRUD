@@ -1,3 +1,7 @@
+if (process.env.NODE_ENV === 'development') {
+  require('dotenv').config()
+}
+
 const express = require('express')
 const { engine } = require('express-handlebars')
 const handlebars = require('handlebars')
@@ -14,10 +18,6 @@ const errorHandlers = require('./middlewares/error-handlers')
 handlebars.registerHelper('isEqual', (arg1, arg2) => {
   return arg1 === arg2
 })
-
-if (process.env.NODE_ENV === 'development') {
-  require('dotenv').config()
-}
 
 const passport = require('passport')
 

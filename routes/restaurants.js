@@ -33,7 +33,7 @@ router.get('/', (req, res) => {
     raw: true
   })
     .then(restaurants => {
-      const maxPage = Math.ceil(restaurants.count / limit)
+      const maxPage = Math.ceil(restaurants.count / limit) || 1
       res.render('index', { 
         restaurants: restaurants.rows,
         prev: page > 1 ? page - 1 : 1,
