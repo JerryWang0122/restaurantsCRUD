@@ -15,6 +15,10 @@ handlebars.registerHelper('isEqual', (arg1, arg2) => {
   return arg1 === arg2
 })
 
+if (process.env.NODE_ENV === 'development') {
+  require('dotenv').config()
+}
+
 const passport = require('passport')
 
 app.engine('.hbs', engine({extname: '.hbs'}))
@@ -26,7 +30,7 @@ app.use(express.urlencoded({ extended: true}))
 app.use(methodOverride('_method'))
 
 app.use(session({
-  secret: 'ThisIsSecret',
+  secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false
 }))
