@@ -19,7 +19,7 @@ handlebars.registerHelper('isEqual', (arg1, arg2) => {
   return arg1 === arg2
 })
 
-const passport = require('passport')
+const passport = require('./config/passport')
 
 app.engine('.hbs', engine({extname: '.hbs'}))
 app.set('view engine', '.hbs')
