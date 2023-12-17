@@ -69,14 +69,6 @@ passport.deserializeUser((user, done) => {
   done(null, { id: user.id, name: user.name })
 })
 
-router.get('/oauth2/login/facebook', passport.authenticate('facebook', { scope: ['email'] }))
-
-router.get('/oauth2/redirect/facebook', passport.authenticate('facebook', {
-  successRedirect: '/restaurants',
-  failureRedirect: '/login',
-  failureFlash: true
-}))
-
 router.get('/login', (req, res) => {
   res.render('login')
 })
