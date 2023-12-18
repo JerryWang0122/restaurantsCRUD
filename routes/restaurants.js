@@ -53,11 +53,11 @@ router.get('/new', (req, res) => {
   return res.render('create')
 })
 
-router.post('/', (req, res, next) => {
+router.post('/', async (req, res, next) => {
   const userId = req.user.id
   const body = req.body
-  const eval = checkRestaurantInfo(body)
-  
+  const eval = await checkRestaurantInfo(body)
+
   if (!eval.state) {
     req.flash('error', eval.errorMessage)
     return res.redirect('back')
@@ -120,17 +120,16 @@ router.get('/:id/edit', (req, res) => {
     })
 })
 
-router.put('/:id', (req, res, next) => {
+router.put('/:id', async (req, res, next) => {
   const id = req.params.id
   const body = req.body
   const userId = req.user.id
 
-  const eval = checkRestaurantInfo(body)
+  const eval = await checkRestaurantInfo(body)
   if (!eval.state) {
     req.flash('error', eval.errorMessage)
     return res.redirect('back')
   }
-
   return Restaurant.findByPk(id)
     .then(rest => {
       if (!rest) {
